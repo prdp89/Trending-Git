@@ -1,0 +1,128 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath Build.androidBuildTools
+        classpath Build.kotlinGradlePlugin
+        classpath Build.hiltAndroid
+    }
+}
+
+subprojects {
+    switch (it.name) {
+        case "app":
+            apply plugin : 'com.android.application'
+            apply plugin : 'kotlin-android'
+            apply plugin : 'kotlin-kapt'
+            apply plugin : 'dagger.hilt.android.plugin'
+            applyAndroid(it, true, true)
+        break;
+
+        default:
+            //setup gradle for libraries
+            apply plugin: 'com.android.library'
+            apply plugin: 'kotlin-android'
+            applyAndroid(it, false, true)
+            break
+    }
+}
+
+def applyAndroid(project, buildConfigCase, enableCompose) {
+    project.android {
+
+        compileSdkVersion Android.compileSdk
+
+        defaultConfig {
+            minSdkVersion Android.minSdk
+            targetSdkVersion Android.targetSdk
+            versionCode Android.versionCode
+            versionName Android.versionName
+            testInstrumentationRunner "com.sample.gitapp.CustomTestRunner"
+        }
+
+        compileOptions {
+            sourceCompatibility = 1.8
+            targetCompatibility = 1.8
+        }
+
+        kotlinOptions {
+            jvmTarget = "1.8"
+            useIR = true
+            //freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+            //freeCompilerArgs += "-Xjvm-default=all"
+        }
+
+        testOptions.unitTests {
+            includeAndroidResources = true
+        }
+
+        buildFeatures {
+            compose enableCompose
+        }
+
+        if (enableCompose) {
+            composeOptions {
+                //kotlinCompilerVersion Kotlin.version
+                kotlinCompilerExtensionVersion Compose.composeVersion
+            }
+        }
+
+        buildFeatures {
+            /*aidl = false
+            renderScript = false
+            resValues = false
+            shaders = false
+            buildConfig = buildConfigCase*/
+        }
+    }
+}
+
+void applyComposeUIDeps(project) {
+    project.dependencies {
+        implementation Compose.activity
+        implementation Compose.ui
+        implementation Compose.tooling
+        implementation Compose.material
+        implementation Compose.hiltNavigation
+    }
+}
+
+void applyHiltDeps(project) {
+    project.dependencies {
+        implementation Hilt.android
+        kapt Hilt.compiler
+
+        implementation Hilt.dagger
+        kapt Hilt.daggerCompiler
+    }
+}
+
+void applyGoogleDeps(project) {
+    project.dependencies {
+        implementation Google.material
+        implementation Google.accompanist
+    }
+}
+
+void applyAndroidKtxDeps(project) {
+    project.dependencies {
+        implementation AndroidX.appCompat
+        implementation AndroidX.coreKtx
+        implementation AndroidX.lifecycleVmKtx
+    }
+}
+
+void applyCoilDep(project) {
+    project.dependencies {
+        implementation Coil.coil
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

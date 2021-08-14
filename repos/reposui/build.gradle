@@ -1,0 +1,6 @@
+plugins {
+    id 'kotlin-kapt'
+}
+
+applyComposeUIDeps(this)
+applyGoogleDeps(this)

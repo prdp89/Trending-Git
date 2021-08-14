@@ -3,7 +3,7 @@
     package="com.sample.gitapp">
 
     <application
-        android:name=".ui.BaseApplication"
+        android:name=".GitApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
