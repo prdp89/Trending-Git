@@ -50,8 +50,8 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = ProjectConfigs.kotlinCompilerExtensionVersion
     }
-    lintOptions {
-        isAbortOnError = false
+    lint {
+        abortOnError = false
     }
     packagingOptions {
         resources.excludes.apply {
@@ -68,7 +68,13 @@ android {
 
 dependencies {
     implementation(project(":navigator"))
+    implementation(project(":settings"))
+    implementation(project(":style"))
+    implementation(project(":coroutines:appscope"))
+    implementation(project(":search:searchui"))
+
     addHiltDependency()
+    addHiltNavigationDependency()
 
     addKotlinDependencies()
 

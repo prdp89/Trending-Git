@@ -3,21 +3,27 @@ package com.example.gitapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gitapp.bottomnavigation.BottomNav
 import com.example.gitapp.bottomnavigation.GitBottomNavigation
+import com.example.gitapp.bottomnavigation.destinations.DevBottomNavRoute
+import com.example.gitapp.bottomnavigation.destinations.RepoBottomNavRoute
 import com.example.gitapp.bottomnavigation.destinations.SearchBottomNavRoute
-import com.example.gitapp.ui.theme.GitAppTheme
 import com.example.navigator.Navigator
 import com.example.navigator.NavigatorEvent
+import com.example.searchui.SearchScreen
+import com.example.settings.SettingsViewModel
+import com.example.style.GitAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
@@ -29,11 +35,12 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var navigator: Navigator
 
+    private val isDarkThemeEnabled get() = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            GitAppTheme {
-                // A surface container using the 'background' color from the theme
+            GitAppTheme(darkThemeFlow = hiltViewModel<SettingsViewModel>().darkTheme, isDarkThemeEnabled) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -55,7 +62,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
             Scaffold(
                 bottomBar = {
                     GitBottomNavigation(navController, BottomNav.bottomNavigationEntries)
@@ -66,22 +72,28 @@ class MainActivity : ComponentActivity() {
                     startDestination = SearchBottomNavRoute.route,
                     builder = {
                         addSearch()
-                        //addFavorites()
-                        //addSettings()
+                        addDevs()
+                        addRepos()
                     }
                 )
             }
         }
 
-    private fun NavGraphBuilder.addSearch() {
-        composable(SearchBottomNavRoute.route) {
-            Search()
+    private fun NavGraphBuilder.addRepos() {
+        composable(RepoBottomNavRoute.route) {
+            SearchScreen()
         }
     }
 
-    @Composable
-    @OptIn(ExperimentalMaterialApi::class)
-    fun Search() {
-        Text(text = "Search here...")
+    private fun NavGraphBuilder.addDevs() {
+        composable(DevBottomNavRoute.route) {
+            SearchScreen()
+        }
+    }
+
+    private fun NavGraphBuilder.addSearch() {
+        composable(SearchBottomNavRoute.route) {
+            SearchScreen()
+        }
     }
 }

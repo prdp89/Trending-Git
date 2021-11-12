@@ -95,3 +95,8 @@ fun DependencyHandler.addHiltDependency() {
     add("kapt", Dependencies.daggerHiltAndroidCompiler)
     add("implementation", Dependencies.daggerHiltAndroid)
 }
+
+fun DependencyHandler.addHiltNavigationDependency() {
+    add("kapt", Dependencies.hiltCompiler)
+    add("implementation", Dependencies.hiltNavigationCompose)
+}

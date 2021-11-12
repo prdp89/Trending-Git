@@ -37,4 +37,6 @@ internal object Versions {
     const val biometric = "1.2.0-alpha03"
 
     const val daggerVersion = "2.38.1"
+    const val navigationCompose = "1.0.0-alpha03"
+    const val hiltCompilerVersion = "1.0.0"
 }
