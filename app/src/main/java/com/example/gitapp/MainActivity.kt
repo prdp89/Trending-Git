@@ -14,6 +14,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.devsui.DevsScreen
 import com.example.gitapp.bottomnavigation.BottomNav
 import com.example.gitapp.bottomnavigation.GitBottomNavigation
 import com.example.gitapp.bottomnavigation.destinations.DevBottomNavRoute
@@ -21,6 +22,7 @@ import com.example.gitapp.bottomnavigation.destinations.RepoBottomNavRoute
 import com.example.gitapp.bottomnavigation.destinations.SearchBottomNavRoute
 import com.example.navigator.Navigator
 import com.example.navigator.NavigatorEvent
+import com.example.reposui.ReposScreen
 import com.example.searchui.SearchScreen
 import com.example.settings.SettingsViewModel
 import com.example.style.GitAppTheme
@@ -69,11 +71,11 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navController,
-                    startDestination = SearchBottomNavRoute.route,
+                    startDestination = RepoBottomNavRoute.route,
                     builder = {
+                        addRepos()
                         addSearch()
                         addDevs()
-                        addRepos()
                     }
                 )
             }
@@ -81,13 +83,13 @@ class MainActivity : ComponentActivity() {
 
     private fun NavGraphBuilder.addRepos() {
         composable(RepoBottomNavRoute.route) {
-            SearchScreen()
+            ReposScreen()
         }
     }
 
     private fun NavGraphBuilder.addDevs() {
         composable(DevBottomNavRoute.route) {
-            SearchScreen()
+            DevsScreen()
         }
     }
 

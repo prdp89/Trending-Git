@@ -8,7 +8,7 @@ plugins {
 }
 
 dependencies {
-    //addCoreAndroidDependencies()
     addComposeOfficialDependencies()
     addHiltNavigationDependency()
+    implementation(project(":settings"))
 }

@@ -72,6 +72,8 @@ dependencies {
     implementation(project(":style"))
     implementation(project(":coroutines:appscope"))
     implementation(project(":search:searchui"))
+    implementation(project(":repos:reposui"))
+    implementation(project(":devs:devsui"))
 
     addHiltDependency()
     addHiltNavigationDependency()

@@ -3,5 +3,7 @@
 
     <style name="Theme.GitApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>
