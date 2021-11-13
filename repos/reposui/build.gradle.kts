@@ -11,4 +11,6 @@ dependencies {
     addComposeOfficialDependencies()
     addHiltNavigationDependency()
     implementation(project(":settings"))
+    implementation(project(":style"))
+    implementation(project(":git-domain:trending"))
 }

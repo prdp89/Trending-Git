@@ -17,3 +17,6 @@ include(":repos:reposui")
 
 include (":devs")
 include(":devs:devsui")
+
+include(":git-domain")
+include(":git-domain:trending")
