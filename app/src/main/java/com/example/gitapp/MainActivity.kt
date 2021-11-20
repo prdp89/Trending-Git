@@ -19,12 +19,14 @@ import com.example.gitapp.bottomnavigation.BottomNav
 import com.example.gitapp.bottomnavigation.GitBottomNavigation
 import com.example.gitapp.bottomnavigation.destinations.DevBottomNavRoute
 import com.example.gitapp.bottomnavigation.destinations.RepoBottomNavRoute
-import com.example.gitapp.bottomnavigation.destinations.SearchBottomNavRoute
+import com.example.gitapp.bottomnavigation.destinations.FavoriteBottomNavRoute
+import com.example.gitapp.bottomnavigation.destinations.SettingsBottomNavRoute
 import com.example.navigator.Navigator
 import com.example.navigator.NavigatorEvent
 import com.example.reposui.ReposScreen
-import com.example.searchui.SearchScreen
+import com.example.favoriteui.FavoriteScreen
 import com.example.settings.SettingsViewModel
+import com.example.settings.ui.SettingsScreen
 import com.example.style.GitAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -74,8 +76,9 @@ class MainActivity : ComponentActivity() {
                     startDestination = RepoBottomNavRoute.route,
                     builder = {
                         addRepos()
-                        addSearch()
+                        addFavorite()
                         addDevs()
+                        addSettings()
                     }
                 )
             }
@@ -93,9 +96,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun NavGraphBuilder.addSearch() {
-        composable(SearchBottomNavRoute.route) {
-            SearchScreen()
+    private fun NavGraphBuilder.addFavorite() {
+        composable(FavoriteBottomNavRoute.route) {
+            FavoriteScreen()
+        }
+    }
+
+    private fun NavGraphBuilder.addSettings() {
+        composable(SettingsBottomNavRoute.route) {
+            SettingsScreen()
         }
     }
 }

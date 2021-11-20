@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GitApp</string>
     <string name="title_repos">Repos</string>
-    <string name="search">Search</string>
+    <string name="title_favorite">Fav</string>
     <string name="title_devs">Devs</string>
+    <string name="title_settings">Settings</string>
 </resources>

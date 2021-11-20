@@ -6,7 +6,8 @@ sealed class BottomNavScreen(val route: String, @StringRes val resourceID: Int) 
 
     companion object {
         const val REPOS = "repos"
-        const val SEARCH = "search"
+        const val FAVORITE = "fav"
         const val DEVS = "devs"
+        const val SETTINGS = "settings"
     }
 }

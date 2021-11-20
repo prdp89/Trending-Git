@@ -9,8 +9,8 @@ include (":coroutines")
 include(":coroutines:appscope")
 include(":coroutines:dispatchers")
 
-include (":search")
-include(":search:searchui")
+include (":favorite")
+include(":favorite:favoriteui")
 
 include (":repos")
 include(":repos:reposui")
@@ -20,3 +20,5 @@ include(":devs:devsui")
 
 include(":git-domain")
 include(":git-domain:trending")
+
+include(":components")

@@ -1,28 +1,32 @@
 package com.example.reposui
 
+import android.widget.SearchView
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.settings.SettingsViewModel
-import com.example.trending.TrendingRepo
-import kotlinx.coroutines.flow.StateFlow
+import com.example.trending.repo.TrendingRepo
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.sp
+import com.example.components.SearchUi
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReposScreen() {
-    val viewModel: SettingsViewModel = hiltViewModel()
-
     val itemList = listOf(
         TrendingRepo(
             1,
@@ -39,45 +43,20 @@ fun ReposScreen() {
     )
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Repos Screen") },
-                elevation = 8.dp,
-                actions = {
-                    DarkTheme(darkThemeFlow = viewModel.darkTheme) {
-                        viewModel.changeTheme(it)
-                    }
-                })
-        }, content = {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colors.background)) {
-                LazyColumn {
-                    items(itemList) {
-                        item ->
+        content = {
+            Column {
+                val textState = remember { mutableStateOf(TextFieldValue("")) }
+                SearchUi(textState, stringResource(id = R.string.search_repos))
+                    LazyColumn() {
+                        items(itemList) {
+                                item ->
                             RepoListItem(repoItem = item) {
                                 //on click..
                             }
+                        }
                     }
-                }
             }
+
         }
     )
-}
-
-@Composable
-fun DarkTheme(
-    darkThemeFlow: StateFlow<Boolean>,
-    changeTheme: (theme: Boolean) -> Unit
-) {
-    val darkTheme = darkThemeFlow.collectAsState().value
-
-    IconButton(onClick = {
-        changeTheme(!darkTheme)
-    }) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_sleep),
-            contentDescription = null
-        )
-    }
 }

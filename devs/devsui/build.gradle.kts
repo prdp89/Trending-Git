@@ -11,4 +11,7 @@ dependencies {
     //addCoreAndroidDependencies()
     addComposeOfficialDependencies()
     addHiltNavigationDependency()
+    implementation(project(":git-domain:trending"))
+    implementation(project(":style"))
+    implementation(project(":components"))
 }

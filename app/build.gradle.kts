@@ -71,7 +71,7 @@ dependencies {
     implementation(project(":settings"))
     implementation(project(":style"))
     implementation(project(":coroutines:appscope"))
-    implementation(project(":search:searchui"))
+    implementation(project(":favorite:favoriteui"))
     implementation(project(":repos:reposui"))
     implementation(project(":devs:devsui"))
 

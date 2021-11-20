@@ -1,7 +1,6 @@
-package com.example.reposui
+package com.example.devsui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,10 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.style.Shapes
-import com.example.trending.repo.TrendingRepo
+import com.example.trending.dev.TrendingDev
 
 @Composable
-fun RepoListItem(repoItem : TrendingRepo,
+fun DevListItem(devItem : TrendingDev,
                  onClick: () -> Unit) {
 
     Card(
@@ -36,56 +35,22 @@ fun RepoListItem(repoItem : TrendingRepo,
         val typography = MaterialTheme.typography
         Row(
             modifier = Modifier
-                .clickable(onClick = { onClick() })
+                .clickable(onClick = { })
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             ItemImage(
                 Modifier.padding(end = 16.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text("title", style = typography.subtitle1)
+                Row {
+                    Text("title", style = typography.subtitle1)
+                    Text("title_1", style = typography.subtitle1, modifier = Modifier.padding(start = 8.dp))
+                }
                 Text("subtitle", style = typography.body2, fontWeight = FontWeight.Bold)
                 Text("Description here...", style = typography.body2, fontWeight = FontWeight.Medium)
-
-                ItemCount(repoItem, Modifier.padding(top = 8.dp))
             }
         }
     }
-}
-
-@Composable
-fun ItemCount(repoItem: TrendingRepo, modifier: Modifier) {
-    Row(modifier = modifier.fillMaxHeight()) {
-        Row(modifier = Modifier.weight(1f)) {
-            Box(
-                modifier = Modifier
-                    .size(10.dp)
-                    .clip(CircleShape)
-                    .background(Color.Red)
-                    .align(alignment = Alignment.CenterVertically)
-            )
-            DrawCountText("C++", Modifier.padding(start = 8.dp))
-        }
-        Row(modifier = Modifier.weight(1f)) {
-            Image(
-                painter = painterResource(R.drawable.star_yellow_16),
-                contentDescription = "Content description for visually impaired"
-            )
-            DrawCountText("116", Modifier.padding(start = 8.dp))
-        }
-        Row(modifier = Modifier.weight(1f)) {
-            Image(
-                painter = painterResource(R.drawable.fork_black_16),
-                contentDescription = "Content description for visually impaired"
-            )
-            DrawCountText("320", Modifier.padding(start = 8.dp))
-        }
-    }
-}
-
-@Composable
-fun DrawCountText(str: String, modifier: Modifier) {
-    Text(str, modifier)
 }
 
 @Composable
