@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+//import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.trending.repo.TrendingRepo
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -21,12 +21,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.components.SearchUi
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReposScreen() {
+    val viewModel: RepoListViewModel = hiltViewModel()
+
     val itemList = listOf(
         TrendingRepo(
             1,

@@ -8,7 +8,7 @@ internal val composeOfficialDependencies = listOf(
     Dependencies.composeRuntimeLivedata,
     Dependencies.composeConstraintLayout,
     Dependencies.composePaging,
-    Dependencies.composeViewModel,
+    //Dependencies.composeViewModel,
     Dependencies.composeActivity,
     Dependencies.composeNavigation,
 )

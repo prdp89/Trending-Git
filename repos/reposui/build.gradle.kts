@@ -1,4 +1,5 @@
 import com.example.gitapp.build.dependencies.addComposeOfficialDependencies
+import com.example.gitapp.build.dependencies.addHiltDependency
 import com.example.gitapp.build.dependencies.addHiltNavigationDependency
 
 plugins {
@@ -9,8 +10,10 @@ plugins {
 
 dependencies {
     addComposeOfficialDependencies()
+    addHiltDependency()
     addHiltNavigationDependency()
     implementation(project(":style"))
     implementation(project(":git-domain:trending"))
     implementation(project(":components"))
+    api(project(":repos:reposinteractors"))
 }
