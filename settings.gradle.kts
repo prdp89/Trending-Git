@@ -23,3 +23,5 @@ include(":git-domain:trending")
 
 include(":components")
 include(":repos:reposinteractors")
+
+include(":core")

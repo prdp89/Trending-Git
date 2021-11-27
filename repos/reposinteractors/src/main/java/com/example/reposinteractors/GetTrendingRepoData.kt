@@ -1,12 +1,14 @@
 package com.example.reposinteractors
 
+import com.example.core.domain.DataState
 import com.example.trending.repo.TrendingRepo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
 public class GetTrendingRepoData @Inject constructor () {
 
-    fun execute() : List<TrendingRepo> = List<TrendingRepo>(0) {
-        return@List TrendingRepo(0 , " ", "", "")
+    fun execute() : Flow<DataState<List<TrendingRepo>>> = flow {
+        emit(DataState.Success<List<TrendingRepo>>(listOf()))
     }
 }

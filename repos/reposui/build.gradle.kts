@@ -16,4 +16,5 @@ dependencies {
     implementation(project(":git-domain:trending"))
     implementation(project(":components"))
     api(project(":repos:reposinteractors"))
+    api(project(":core"))
 }

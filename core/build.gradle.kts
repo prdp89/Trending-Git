@@ -3,12 +3,8 @@ import com.example.gitapp.build.dependencies.addKotlinDependencies
 
 plugins {
     id("common-kotlin-module-configs-script-plugin")
-    id("kotlin-kapt")
 }
 
 dependencies {
     addKotlinDependencies()
-    implementation(project(":git-domain:trending"))
-    implementation(project(":core"))
-    addHiltDependency()
 }
