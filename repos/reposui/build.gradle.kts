@@ -17,4 +17,6 @@ dependencies {
     implementation(project(":components"))
     api(project(":repos:reposinteractors"))
     api(project(":core"))
+    implementation(project(mapOf("path" to ":coroutines:dispatchers")))
+    api(project(":paging"))
 }

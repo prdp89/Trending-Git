@@ -6,9 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-public class GetTrendingRepoData @Inject constructor () {
+public class GetTrendingRepoData @Inject constructor (
+    private val latestBooksDataSourceFactory: TrendingRepoDataSource.TrendingRepoDataSourceFactory) {
 
     fun execute() : Flow<DataState<List<TrendingRepo>>> = flow {
+        //val key = ioDispatcher.key
         emit(DataState.Success<List<TrendingRepo>>(listOf()))
     }
 }

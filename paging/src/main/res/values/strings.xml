@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_connection_message_will_load_on_connection_achieved">No Internet Connection.</string>
+</resources>

@@ -1,5 +1,6 @@
 package com.example.reposinteractors
 
+/*
 data class TrendingRepoInteractors(val getTrendingRepo : GetTrendingRepoData) {
 
     companion object Factory {
@@ -7,4 +8,4 @@ data class TrendingRepoInteractors(val getTrendingRepo : GetTrendingRepoData) {
             return TrendingRepoInteractors(getTrendingRepo = GetTrendingRepoData())
         }
     }
-}
+}*/

@@ -25,3 +25,6 @@ include(":components")
 include(":repos:reposinteractors")
 
 include(":core")
+include(":paging")
+include(":toaster")
+include(":internetdetector")
