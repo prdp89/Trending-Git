@@ -6,6 +6,8 @@ import androidx.paging.PagingState
 import com.example.core.domain.PAGE_CONST
 import com.example.core.domain.PAGE_SIZE
 import com.example.core.domain.TrendingRepository
+import com.example.core.dto.TrendingRepoDTO
+import com.example.core.dto.toTrendingRepo
 import com.example.internetdetector.core.isOnline
 import com.example.paging.NoConnectionException
 import com.example.paging.canNotLoadMoreContent
@@ -55,7 +57,7 @@ class TrendingRepoDataSource @AssistedInject constructor(
         }
     }
 
-    private fun tryToLoadBooks(page: Int, it: List<TrendingRepo>): LoadResult.Page<Int, TrendingRepo> {
+    private fun tryToLoadBooks(page: Int, it: List<TrendingRepoDTO>): LoadResult.Page<Int, TrendingRepo> {
         return if (canLoadMore) {
             loadBooks(it, page)
         } else {
@@ -63,10 +65,9 @@ class TrendingRepoDataSource @AssistedInject constructor(
         }
     }
 
-    private fun loadBooks(list: List<TrendingRepo>?, page: Int): LoadResult.Page<Int, TrendingRepo> {
+    private fun loadBooks(list: List<TrendingRepoDTO>?, page: Int): LoadResult.Page<Int, TrendingRepo> {
 
-        //map DTO to return data here..
-        //val list = processDocument(it)
+        val repoDTO = list?.map { it.toTrendingRepo() }
 
         list?.let {
             if (it.size < PAGE_SIZE.toInt()) {
@@ -75,21 +76,12 @@ class TrendingRepoDataSource @AssistedInject constructor(
             }
         }
 
-        return if (list.isNullOrEmpty()) {
+        return if (repoDTO.isNullOrEmpty()) {
             canNotLoadMoreContent()
         } else {
-            val prevKey = if (list.isEmpty()) if (page == 1) null else page - 1 else null
-            val nextKey = if (list.count() == 0) null else page.plus(1)
-            LoadResult.Page(list, prevKey, nextKey)
+            val prevKey = if (repoDTO.isEmpty()) if (page == 1) null else page - 1 else null
+            val nextKey = if (repoDTO.count() == 0) null else page.plus(1)
+            LoadResult.Page(repoDTO, prevKey, nextKey)
         }
     }
-
-   /* private fun processDocument(it: List<TrendingRepo>?): List<TrendingRepo>? {
-        return it?.let { document ->
-
-            return@let trs.map {
-                return@map Book(it)
-            }
-        }
-    }*/
 }

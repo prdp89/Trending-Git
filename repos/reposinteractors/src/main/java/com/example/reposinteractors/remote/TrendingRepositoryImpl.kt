@@ -2,11 +2,12 @@ package com.example.reposinteractors.remote
 
 import com.example.core.domain.TrendingRepository
 import com.example.core.api.TrendingRepoApi
+import com.example.core.dto.TrendingRepoDTO
 import com.example.trending.repo.TrendingRepo
 import javax.inject.Inject
 
 class TrendingRepositoryImpl @Inject constructor(private val trendingRepoApi: TrendingRepoApi) : TrendingRepository {
-    override suspend fun getTrendingRepos(page: Int): List<TrendingRepo> {
+    override suspend fun getTrendingRepos(page: Int): List<TrendingRepoDTO> {
         return trendingRepoApi.getTrendingRepositories(page)
     }
 }

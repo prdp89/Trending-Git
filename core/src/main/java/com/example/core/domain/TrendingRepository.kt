@@ -1,9 +1,8 @@
 package com.example.core.domain
 
-import com.example.trending.repo.TrendingRepo
+import com.example.core.dto.TrendingRepoDTO
 
 interface TrendingRepository {
 
-    //return type must be a DTO
-    suspend fun getTrendingRepos(page: Int): List<TrendingRepo>
+    suspend fun getTrendingRepos(page: Int): List<TrendingRepoDTO>
 }

@@ -9,7 +9,6 @@ class TrendingRepo(
     override var url: String?
 ) : TrendingData {
     var author: String? =null
-    var currentPeriodStars: Int ? =null
     var description: String ? = null
     var forks: Int? = null
     var stars: Int? = null
