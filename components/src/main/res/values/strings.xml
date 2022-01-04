@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="retry">Retry</string>
+    <string name="no_data_loaded_no_connect">No active connect, please connect to reload.</string>
+</resources>

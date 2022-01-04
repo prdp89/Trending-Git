@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,6 +19,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.Coil
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import coil.util.CoilUtils
 import com.example.style.Shapes
 import com.example.trending.repo.TrendingRepo
 
@@ -40,12 +45,16 @@ fun RepoListItem(repoItem : TrendingRepo,
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ItemImage(
-                Modifier.padding(end = 16.dp))
+            repoItem.avatar?.let {
+                ItemImage(
+                    it,
+                    Modifier.padding(end = 16.dp))
+            }
+
             Column(modifier = Modifier.weight(1f)) {
-                Text("title", style = typography.subtitle1)
-                Text("subtitle", style = typography.body2, fontWeight = FontWeight.Bold)
-                Text("Description here...", style = typography.body2, fontWeight = FontWeight.Medium)
+                repoItem.author?.let { Text(it, style = typography.subtitle1) }
+                repoItem.name?.let { Text(it, style = typography.body2, fontWeight = FontWeight.Bold) }
+                repoItem.description?.let { Text(it, style = typography.body2, fontWeight = FontWeight.Medium) }
 
                 ItemCount(repoItem, Modifier.padding(top = 8.dp))
             }
@@ -64,34 +73,36 @@ fun ItemCount(repoItem: TrendingRepo, modifier: Modifier) {
                     .background(Color.Red)
                     .align(alignment = Alignment.CenterVertically)
             )
-            DrawCountText("C++", Modifier.padding(start = 8.dp))
+            repoItem.language?.let { Text(it, Modifier.padding(start = 8.dp)) }
         }
         Row(modifier = Modifier.weight(1f)) {
             Image(
                 painter = painterResource(R.drawable.star_yellow_16),
                 contentDescription = "Content description for visually impaired"
             )
-            DrawCountText("116", Modifier.padding(start = 8.dp))
+            DrawCountText(repoItem.stars, Modifier.padding(start = 8.dp))
         }
         Row(modifier = Modifier.weight(1f)) {
             Image(
                 painter = painterResource(R.drawable.fork_black_16),
                 contentDescription = "Content description for visually impaired"
             )
-            DrawCountText("320", Modifier.padding(start = 8.dp))
+            DrawCountText(repoItem.forks, Modifier.padding(start = 8.dp))
         }
     }
 }
 
 @Composable
-fun DrawCountText(str: String, modifier: Modifier) {
-    Text(str, modifier)
+fun DrawCountText(str: Int?, modifier: Modifier) {
+    Text(str.toString(), modifier)
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun ItemImage(modifier: Modifier = Modifier) {
+fun ItemImage(imagePath: String, modifier: Modifier = Modifier) {
+
     Image(
-        painter = painterResource(id = R.drawable.ic_sleep),
+        painter = rememberImagePainter(imagePath),
         contentScale = ContentScale.Crop,
         contentDescription = null,
         modifier = modifier

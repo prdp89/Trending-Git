@@ -13,11 +13,12 @@ import com.example.paging.refreshState
 import com.example.toaster.core.Toaster
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @ViewModelScoped
-class PagingUIProvider @Inject constructor(
+public class PagingUIProvider @Inject constructor(
     private val toaster: Toaster,
     private val internetDetector: InternetDetector
 ) : PagingUIProviderContract {
@@ -25,6 +26,7 @@ class PagingUIProvider @Inject constructor(
     override fun <T : Any> isDataEmpty(pagingItems: LazyPagingItems<T>): Boolean =
             pagingItems.itemCount == 0
 
+    @ExperimentalCoroutinesApi
     @Composable
     override fun <T : Any> OnError(scope: CoroutineScope, pagingItems: LazyPagingItems<T>, noInternetUI: @Composable () -> Unit, errorUI: @Composable () -> Unit) {
         val append = pagingItems.appendState

@@ -1,6 +1,7 @@
 import com.example.gitapp.build.dependencies.addComposeOfficialDependencies
 import com.example.gitapp.build.dependencies.addHiltDependency
 import com.example.gitapp.build.dependencies.addHiltNavigationDependency
+import com.example.gitapp.build.dependencies.addThirdPartyUiDependencies
 
 plugins {
 
@@ -19,4 +20,5 @@ dependencies {
     api(project(":core"))
     implementation(project(mapOf("path" to ":coroutines:dispatchers")))
     api(project(":paging"))
+    addThirdPartyUiDependencies()
 }

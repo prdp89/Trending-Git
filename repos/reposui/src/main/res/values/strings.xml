@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_repos">Search Repos</string>
+    <string name="no_more_repo_to_load">No more data to load.</string>
+    <string name="no_repo_search">No Repo available.</string>
+    <string name="no_repo_loaded_no_connect">Please connect to active internet.</string>
 </resources>

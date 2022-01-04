@@ -7,6 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PagingUIProviderViewModel @Inject constructor(
+public class PagingUIProviderViewModel @Inject constructor(
     private val pagingUIProvider: PagingUIProvider
 ) : PagingUIProviderContract by pagingUIProvider, ViewModel()

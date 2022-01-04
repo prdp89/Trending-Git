@@ -39,6 +39,11 @@ class RepoListViewModel @Inject constructor(private val latestRepoDataSourceFact
     val pagingData =
         pagingDataProvider.providePagingData(viewModelScope, ioDispatcher) { latestRepoDataSource }
 
+    fun refresh() {
+        latestRepoDataSource.canLoadMore = true
+        sortQuery = ""
+    }
+
     //val state: MutableState<RepoListState> = mutableStateOf(RepoListState())
 
     /*fun onTriggerRepoListEvents() {

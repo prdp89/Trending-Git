@@ -6,6 +6,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.paging.NoConnectionException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 interface PagingUIProviderContract {
 
@@ -23,6 +24,7 @@ interface PagingUIProviderContract {
     fun <T : Any> isSwipeToRefreshEnabled(pagingItems: LazyPagingItems<T>): Boolean
     fun onPaginationReachedError(append: LoadState, @StringRes errorMessage: Int)
 
+    @ExperimentalCoroutinesApi
     @Composable
     fun <T : Any> OnError(
             scope: CoroutineScope,

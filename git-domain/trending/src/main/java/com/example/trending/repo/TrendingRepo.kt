@@ -12,6 +12,7 @@ class TrendingRepo(
     var description: String ? = null
     var forks: Int? = null
     var stars: Int? = null
+    var language: String? = null
 
     var builtBy: MutableList<RepoBuiltBy>? = null
 

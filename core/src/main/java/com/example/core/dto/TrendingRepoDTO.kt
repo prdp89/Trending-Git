@@ -37,5 +37,6 @@ fun TrendingRepoDTO.toTrendingRepo() : TrendingRepo {
                                 it.description = description
                                 it.forks = forks
                                 it.stars = stars
+                                it.language = language
                             }
 }
