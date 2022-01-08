@@ -14,6 +14,7 @@ include(":favorite:favoriteui")
 
 include (":repos")
 include(":repos:reposui")
+include(":repos:reposinteractors")
 
 include (":devs")
 include(":devs:devsui")
@@ -22,9 +23,11 @@ include(":git-domain")
 include(":git-domain:trending")
 
 include(":components")
-include(":repos:reposinteractors")
 
 include(":core")
 include(":paging")
 include(":toaster")
 include(":internetdetector")
+
+include(":repodetails")
+include(":repodetails:repodetailsui")

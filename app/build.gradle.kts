@@ -74,6 +74,7 @@ dependencies {
     implementation(project(":favorite:favoriteui"))
     implementation(project(":repos:reposui"))
     implementation(project(":devs:devsui"))
+    implementation(project(":repodetails:repodetailsui"))
 
     addHiltDependency()
     addHiltNavigationDependency()

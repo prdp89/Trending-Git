@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 class TrendingRepositoryImpl @Inject constructor(private val trendingRepoApi: TrendingRepoApi) : TrendingRepository {
     override suspend fun getTrendingRepos(page: Int): List<TrendingRepoDTO> {
-        return trendingRepoApi.getTrendingRepositories(page)
+        //todo:pass google in search..
+        return trendingRepoApi.getTrendingRepositories("google", page)
     }
 }

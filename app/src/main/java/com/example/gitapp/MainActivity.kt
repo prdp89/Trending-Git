@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,6 +27,8 @@ import com.example.navigator.Navigator
 import com.example.navigator.NavigatorEvent
 import com.example.reposui.ReposScreen
 import com.example.favoriteui.FavoriteScreen
+import com.example.navigator.destinations.RepoDetailsDestination
+import com.example.repodetailsui.ReposDetailsScreen
 import com.example.settings.SettingsViewModel
 import com.example.settings.ui.SettingsScreen
 import com.example.style.GitAppTheme
@@ -58,6 +62,8 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun GitScaffold(navigator: Navigator) {
         val navController = rememberNavController()
+        val scope = rememberCoroutineScope()
+
         LaunchedEffect(navController) {
               navigator.destinations.collect {
                 when (val event = it) {
@@ -79,10 +85,21 @@ class MainActivity : ComponentActivity() {
                         addFavorite()
                         addDevs()
                         addSettings()
+                        addRepoDetails(navController)
                     }
                 )
             }
         }
+
+    private fun NavGraphBuilder.addRepoDetails(navController: NavHostController) {
+        with(RepoDetailsDestination) {
+            composable(route(), arguments) {
+                //to get param from stack
+                //navController.currentBackStackEntry?.arguments?.getInt("repo")
+                ReposDetailsScreen()
+            }
+        }
+    }
 
     private fun NavGraphBuilder.addRepos() {
         composable(RepoBottomNavRoute.route) {

@@ -19,6 +19,7 @@ import androidx.paging.compose.items
 import com.example.components.ErrorMessage
 import com.example.components.ErrorWithRetry
 import com.example.components.SearchUi
+import com.example.navigator.destinations.RepoDetailsDestination
 import com.example.paging.PagingUIProviderViewModel
 import com.example.paging.appendState
 
@@ -76,6 +77,7 @@ fun ReposScreen() {
                         item ?: return@items
                         RepoListItem(repoItem = item) {
                             //on click..
+                            viewModel.navigate(RepoDetailsDestination.createRepoDetailsRoute(item.id!!))
                         }
                     }
                 }

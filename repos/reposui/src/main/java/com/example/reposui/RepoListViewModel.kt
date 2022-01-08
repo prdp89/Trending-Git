@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.navigator.Navigator
 import com.example.paging.data.PagingDataProvider
 import com.example.paging.data.PagingDataSourceHandle
 import com.example.paging.stateHandleDelegate
@@ -16,11 +17,12 @@ import javax.inject.Inject
 @HiltViewModel
 class RepoListViewModel @Inject constructor(private val latestRepoDataSourceFactory: TrendingRepoDataSource.TrendingRepoDataSourceFactory
                                             , application: Application
+                                            , private val navigator: Navigator
                                             , pagingDataProvider: PagingDataProvider
                                             , @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
                                             override val savedStateHandle: SavedStateHandle,
 )
-    : ViewModel(), PagingDataSourceHandle {
+    : ViewModel(), PagingDataSourceHandle, Navigator by navigator {
 
     init {
         //onTriggerRepoListEvents()
