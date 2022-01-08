@@ -10,11 +10,11 @@ object RepoDetailsDestination : NavigationDestination {
     override fun route(): String = REPO_DETAILS_BOTTOM_NAV_ROUTE
 
     override val arguments: List<NamedNavArgument>
-        get() = listOf(navArgument(REPO_ID_PARAM) { type = NavType.IntType })
+        get() = listOf(navArgument(REPO_NAME_PARAM) { type = NavType.StringType })
 
-    fun createRepoDetailsRoute(repoID: Int) = "$REPO_DETAILS_ROUTE/${repoID}"
+    fun createRepoDetailsRoute(repoName: String) = "$REPO_DETAILS_ROUTE/${repoName}"
 
-    const val REPO_ID_PARAM = "repo"
+    const val REPO_NAME_PARAM = "repo"
     private const val REPO_DETAILS_ROUTE = "repo_details"
-    private const val REPO_DETAILS_BOTTOM_NAV_ROUTE = "$REPO_DETAILS_ROUTE/{$REPO_ID_PARAM}"
+    private const val REPO_DETAILS_BOTTOM_NAV_ROUTE = "$REPO_DETAILS_ROUTE/{$REPO_NAME_PARAM}"
 }

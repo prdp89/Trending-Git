@@ -21,8 +21,7 @@ class RepoListViewModel @Inject constructor(private val latestRepoDataSourceFact
                                             , pagingDataProvider: PagingDataProvider
                                             , @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
                                             override val savedStateHandle: SavedStateHandle,
-)
-    : ViewModel(), PagingDataSourceHandle, Navigator by navigator {
+) : ViewModel(), PagingDataSourceHandle, Navigator by navigator {
 
     init {
         //onTriggerRepoListEvents()

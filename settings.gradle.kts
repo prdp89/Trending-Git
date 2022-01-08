@@ -31,3 +31,4 @@ include(":internetdetector")
 
 include(":repodetails")
 include(":repodetails:repodetailsui")
+include(":repodetails:repodetailinteractor")

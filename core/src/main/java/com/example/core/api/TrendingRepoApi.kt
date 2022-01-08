@@ -11,5 +11,5 @@ interface TrendingRepoApi {
     suspend fun getTrendingRepositories(@Path("org") org : String, @Query("page") page : Int): List<TrendingRepoDTO>
 
     @GET("repos/{owner}/{repo}")
-    suspend fun getRepoDetails(@Path("owner") owner: String, @Path("repo") repoName: String)
+    suspend fun getRepoDetails(@Path("owner") owner: String, @Path("repo") repoName: String) : TrendingRepoDTO
 }

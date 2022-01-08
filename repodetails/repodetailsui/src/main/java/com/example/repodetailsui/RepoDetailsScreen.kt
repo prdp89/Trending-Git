@@ -22,6 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun ReposDetailsScreen() {
     val viewModel: RepoDetailsViewModel = hiltViewModel()
+    val state = viewModel.state.value
+
 
     val item = (1..100).map { "Item $it" }
     val lazyListState = rememberLazyListState()
@@ -49,7 +51,7 @@ fun ReposDetailsScreen() {
 
         items(item) {
             Text(
-                text = it,
+                text = viewModel.name,
                 Modifier
                     .background(Color.Black)
                     .fillMaxWidth()

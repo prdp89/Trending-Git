@@ -17,4 +17,7 @@ dependencies {
     implementation(project(":navigator"))
     api(project(":paging"))
 
+    api(project(":repodetails:repodetailinteractor"))
+    implementation(project(":git-domain:trending"))
+    api(project(":core"))
 }

@@ -77,7 +77,7 @@ fun ReposScreen() {
                         item ?: return@items
                         RepoListItem(repoItem = item) {
                             //on click..
-                            viewModel.navigate(RepoDetailsDestination.createRepoDetailsRoute(item.id!!))
+                            viewModel.navigate(RepoDetailsDestination.createRepoDetailsRoute(item.name!!))
                         }
                     }
                 }

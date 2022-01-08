@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-public class GetTrendingRepoData @Inject constructor (
+public class GetTrendingReposData @Inject constructor (
     private val latestBooksDataSourceFactory: TrendingRepoDataSource.TrendingRepoDataSourceFactory) {
 
     fun execute() : Flow<DataState<List<TrendingRepo>>> = flow {

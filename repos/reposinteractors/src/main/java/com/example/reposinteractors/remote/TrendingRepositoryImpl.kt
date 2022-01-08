@@ -11,4 +11,8 @@ class TrendingRepositoryImpl @Inject constructor(private val trendingRepoApi: Tr
         //todo:pass google in search..
         return trendingRepoApi.getTrendingRepositories("google", page)
     }
+
+    override suspend fun getTrendingRepo(owner: String, repoName: String): TrendingRepoDTO {
+        return trendingRepoApi.getRepoDetails(owner, repoName);
+    }
 }
