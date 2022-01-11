@@ -1,6 +1,6 @@
 package com.example.trending.dev
 
-import com.example.trending.TrendingData
+import com.example.base.TrendingData
 
 class TrendingDev(
     override val id: Int?,

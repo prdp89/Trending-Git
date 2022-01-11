@@ -66,7 +66,9 @@ fun ReposScreen() {
                 SearchUi(textState, stringResource(id = R.string.search_repos))
 
                 AnimatedVisibility(visible = progressVisibility,
-                    modifier = Modifier.height(10.dp).width(10.dp)
+                    modifier = Modifier
+                        .height(10.dp)
+                        .width(10.dp)
                         .padding(top = 8.dp)
                         .zIndex(2f)) {
                     CircularProgressIndicator()

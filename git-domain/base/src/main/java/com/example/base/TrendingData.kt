@@ -1,4 +1,4 @@
-package com.example.trending
+package com.example.base
 
 interface TrendingData {
     val id: Int?

@@ -15,6 +15,7 @@ dependencies {
     addHiltNavigationDependency()
     implementation(project(":style"))
     implementation(project(":git-domain:trending"))
+    implementation(project(":git-domain:base"))
     implementation(project(":components"))
     api(project(":repos:reposinteractors"))
     api(project(":core"))

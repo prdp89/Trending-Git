@@ -19,5 +19,8 @@ dependencies {
 
     api(project(":repodetails:repodetailinteractor"))
     implementation(project(":git-domain:trending"))
+    implementation(project(":git-domain:base"))
     api(project(":core"))
+    addThirdPartyUiDependencies()
+    implementation(project(":style"))
 }
