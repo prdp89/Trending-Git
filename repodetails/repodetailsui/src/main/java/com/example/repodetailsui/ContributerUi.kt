@@ -12,16 +12,16 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.produceState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
+import com.example.components.stateWhenStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @ExperimentalCoilApi
@@ -33,7 +33,7 @@ fun ContributerUi(viewModel: RepoDetailsViewModel) {
     rememberCoroutineScope allows us to initiate coroutines from any composables or callbacks.
     This can be done without having to worry about the coroutine’s lifespan.
      */
-    //val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     //https://stackoverflow.com/questions/66474049/using-remembercoroutinescope-vs-launchedeffect
     //LaunchedEffect should be used when you want that some action must be taken when your composable is first launched.
@@ -44,16 +44,23 @@ fun ContributerUi(viewModel: RepoDetailsViewModel) {
 
     //val state = viewModel.state.value
 
-
     val lazyListState = rememberLazyListState()
 
-    val produceState =  produceState(initialValue = viewModel.state ) {
+    /*val produceState =  produceState(initialValue = viewModel.state ) {
         viewModel.getRepoContributors(viewModel.name)
         value = viewModel.contributors
+    }*/
+
+    //To prevent reloading of Contributers on BottomSheet switching..
+    LaunchedEffect (scope) {
+       if(null != viewModel.contributors.firstOrNull { it -> it.contributors.isEmpty() })
+           viewModel.getRepoContributors(viewModel.name)
     }
 
+    val contributors by stateWhenStarted(viewModel.contributors, RepoDetailsState())
+
     Box(modifier = Modifier.fillMaxSize()) {
-        if (produceState.value.value.isLoading) {
+        if (contributors.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
         Column {
@@ -65,7 +72,7 @@ fun ContributerUi(viewModel: RepoDetailsViewModel) {
 
             ListItemDivider()
 
-            if(produceState.value.value.contributors.isNotEmpty()) {
+            if(contributors.contributors.isNotEmpty()) {
                 Text(
                     text = stringResource(R.string.contributors_text),
                     style = typography.subtitle1, modifier = Modifier.padding(top = 16.dp, start = 16.dp)
@@ -75,7 +82,7 @@ fun ContributerUi(viewModel: RepoDetailsViewModel) {
                     Modifier.padding(32.dp),
                     lazyListState,
                 ) {
-                    items(produceState.value.value.contributors) { item ->
+                    items(contributors.contributors) { item ->
                         ContributorItem(item)
                     }
 

@@ -11,4 +11,5 @@ dependencies {
     addComposeOfficialDependencies()
     addHiltNavigationDependency()
     implementation(project(":style"))
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 }

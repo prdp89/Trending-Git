@@ -23,4 +23,7 @@ dependencies {
     api(project(":core"))
     addThirdPartyUiDependencies()
     implementation(project(":style"))
+
+    api(project(":favorite:favoritedb"))
+    implementation(project(":components"))
 }

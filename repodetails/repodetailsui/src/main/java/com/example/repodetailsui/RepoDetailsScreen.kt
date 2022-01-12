@@ -1,41 +1,37 @@
 package com.example.repodetailsui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.example.components.stateWhenStarted
+import com.example.core.entity.FavoriteRepoEntity
 import com.example.style.Shapes
-import kotlinx.coroutines.launch
 
 @ExperimentalCoilApi
 @Composable
 fun ReposDetailsScreen() {
     val viewModel: RepoDetailsViewModel = hiltViewModel()
     val state = viewModel.state.value
+    val favoritesBook by stateWhenStarted(viewModel.favoriteRepo, null)
 
-    val item = (1..100).map { "Item $it" }
     val lazyListState = rememberLazyListState()
     var scrolledY = 0f
     var previousOffset = 0
@@ -61,8 +57,12 @@ fun ReposDetailsScreen() {
                             .fillMaxWidth()
                     )
 
-                    AddToFavorites(modifier = Modifier.align(Alignment.TopEnd)) {
-
+                    AddToFavorites(modifier = Modifier.align(Alignment.TopEnd), favoritesBook != null) {
+                        viewModel.addToFavorites(FavoriteRepoEntity(state.repo?.id,
+                        state.repo?.avatar,
+                        state.repo?.name,
+                        state.repo?.url).also { it.description = state.repo?.description }
+                        )
                     }
                 }
             }

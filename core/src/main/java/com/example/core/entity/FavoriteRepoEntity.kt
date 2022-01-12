@@ -11,16 +11,13 @@ data class FavoriteRepoEntity(
     @ColumnInfo(name = "id")
     override val id: Int?,
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "avatar")
     override val avatar: String?,
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "name")
     override val name: String?,
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "url")
     override var url: String?
 ) : TrendingData {
 

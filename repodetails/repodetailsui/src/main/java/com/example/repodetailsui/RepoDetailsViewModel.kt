@@ -4,18 +4,23 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.core.domain.DataState
+import com.example.core.entity.FavoriteRepoEntity
+import com.example.favoritedb.db.FavoritesDAO
+import com.example.navigator.destinations.RepoDetailsDestination.REPO_ID_PARAM
 import com.example.navigator.destinations.RepoDetailsDestination.REPO_NAME_PARAM
 import com.example.paging.data.PagingDataSourceHandle
 import com.example.repodetailinteractor.GetRepoContributorsData
 import com.example.repodetailinteractor.GetTrendingRepoData
+import com.example.trending.repo.TrendingRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RepoDetailsViewModel @Inject constructor(
     private val getTrendingRepo : GetTrendingRepoData,
+    private val favoriteDao : FavoritesDAO,
     private val getRepoContributorsData: GetRepoContributorsData,
     override val savedStateHandle: SavedStateHandle,
 ) : ViewModel(), PagingDataSourceHandle {
@@ -24,14 +29,33 @@ class RepoDetailsViewModel @Inject constructor(
         get() = savedStateHandle.get<String>(REPO_NAME_PARAM)
             ?: throw IllegalStateException("Parameter Name must not be null!")
 
+    private val id
+        get() = savedStateHandle.get<Int>(REPO_ID_PARAM)
+            ?: throw IllegalStateException("Parameter ID must not be null!")
+
     private val _state = mutableStateOf(RepoDetailsState())
     val state: State<RepoDetailsState> = _state
 
-    private val _contributorsData = mutableStateOf(RepoDetailsState())
-    val contributors: State<RepoDetailsState> = _contributorsData
+    /*private val _contributorsData = mutableStateOf(RepoDetailsState())
+    val contributors: State<RepoDetailsState> = _contributorsData*/
+
+    private val _contributorsData: MutableStateFlow<RepoDetailsState> = MutableStateFlow(RepoDetailsState())
+    val contributors = _contributorsData.asStateFlow()
+
+    private val favoriteRepoData: MutableStateFlow<FavoriteRepoEntity?> = MutableStateFlow(null)
+    val favoriteRepo = favoriteRepoData.asStateFlow()
 
     init {
         getRepo()
+        getFavoriteStatus()
+    }
+
+    private fun getFavoriteStatus() {
+        viewModelScope.launch {
+            favoriteDao.getFavoriteById(id).collect {
+                favoriteRepoData.value = it
+            }
+        }
     }
 
     private fun getRepo() {
@@ -68,5 +92,11 @@ class RepoDetailsViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun addToFavorites(data: FavoriteRepoEntity) {
+        viewModelScope.launch {
+            favoriteDao.insertIntoFavorites(data)
+        }
     }
 }

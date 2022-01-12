@@ -17,11 +17,11 @@ class GetRepoContributorsData @Inject constructor(
 
     operator fun invoke(repoName: String): Flow<DataState<List<RepoContributors>>> = flow {
         try {
-            emit(DataState.Loading<List<RepoContributors>>())
+            emit(DataState.Loading())
             val repo = trendingRepository.getRepoContributors("google", repoName).map { it.toRepoContributors() }
-            emit(DataState.Success<List<RepoContributors>>(repo))
+            emit(DataState.Success(repo))
         } catch(e: Exception) {
-            emit(DataState.Failure<List<RepoContributors>>(e.localizedMessage?: "Couldn't reach server. Check your internet connection."))
+            emit(DataState.Failure(e.localizedMessage?: "Couldn't reach server. Check your internet connection."))
         }
     }
 }
