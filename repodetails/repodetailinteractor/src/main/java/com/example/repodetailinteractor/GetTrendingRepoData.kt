@@ -13,10 +13,10 @@ class GetTrendingRepoData @Inject constructor(
     private val trendingRepository : TrendingRepository
     ) {
 
-    operator fun invoke(repoName: String): Flow<DataState<TrendingRepo>> = flow {
+    operator fun invoke(repoName: String, author: String): Flow<DataState<TrendingRepo>> = flow {
         try {
             emit(DataState.Loading<TrendingRepo>())
-            val repo = trendingRepository.getTrendingRepo("google", repoName).toTrendingRepo()
+            val repo = trendingRepository.getTrendingRepo(author, repoName).toTrendingRepo()
             emit(DataState.Success<TrendingRepo>(repo))
         } catch(e: Exception) {
             emit(DataState.Failure<TrendingRepo>(e.localizedMessage?: "Couldn't reach server. Check your internet connection."))

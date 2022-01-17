@@ -6,6 +6,8 @@ import androidx.lifecycle.*
 import com.example.core.domain.DataState
 import com.example.core.entity.FavoriteRepoEntity
 import com.example.favoritedb.db.FavoritesDAO
+import com.example.navigator.Navigator
+import com.example.navigator.destinations.RepoDetailsDestination.REPO_AUTHOR_PARAM
 import com.example.navigator.destinations.RepoDetailsDestination.REPO_ID_PARAM
 import com.example.navigator.destinations.RepoDetailsDestination.REPO_NAME_PARAM
 import com.example.paging.data.PagingDataSourceHandle
@@ -23,7 +25,8 @@ class RepoDetailsViewModel @Inject constructor(
     private val favoriteDao : FavoritesDAO,
     private val getRepoContributorsData: GetRepoContributorsData,
     override val savedStateHandle: SavedStateHandle,
-) : ViewModel(), PagingDataSourceHandle {
+    private val navigator: Navigator
+) : ViewModel(), PagingDataSourceHandle, Navigator by navigator {
 
     val name
         get() = savedStateHandle.get<String>(REPO_NAME_PARAM)
@@ -32,6 +35,10 @@ class RepoDetailsViewModel @Inject constructor(
     private val id
         get() = savedStateHandle.get<Int>(REPO_ID_PARAM)
             ?: throw IllegalStateException("Parameter ID must not be null!")
+
+    private val author
+        get() = savedStateHandle.get<String>(REPO_AUTHOR_PARAM)
+            ?: throw IllegalStateException("Parameter Author must not be null!")
 
     private val _state = mutableStateOf(RepoDetailsState())
     val state: State<RepoDetailsState> = _state
@@ -59,7 +66,7 @@ class RepoDetailsViewModel @Inject constructor(
     }
 
     private fun getRepo() {
-        getTrendingRepo(name).onEach { result ->
+        getTrendingRepo(name, author).onEach { result ->
             when (result) {
                 is DataState.Success -> {
                     _state.value = RepoDetailsState(repo = result.data)

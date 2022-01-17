@@ -1,20 +1,22 @@
 package com.example.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -22,7 +24,16 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun SearchUi(state: MutableState<TextFieldValue>, searchTextPlaceholder : String) {
+fun SearchUi(
+    query: TextFieldValue,
+    onQueryChange: (TextFieldValue) -> Unit,
+    onBackKeyPressed: (Pair<TextFieldValue, Boolean>) -> Unit,
+    onSearchBegin: (TextFieldValue) -> Unit,
+    searchTextPlaceholder: String,
+    searchFocused: Boolean,
+    onSearchFocusChange: (Boolean) -> Unit) {
+    val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -33,35 +44,54 @@ fun SearchUi(state: MutableState<TextFieldValue>, searchTextPlaceholder : String
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            TextField(
-                value = state.value,
-                onValueChange = { value ->
-                    state.value = value
-                },
+          TextField(
+                value = query,
+                onValueChange = onQueryChange,
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .onFocusChanged {
+                        onSearchFocusChange(it.isFocused)
+                    }
+                    .focusRequester(focusRequester),
                 textStyle = TextStyle(color = MaterialTheme.colors.onSecondary, fontSize = 18.sp),
                 leadingIcon = {
-                    Icon(
-                        Icons.Default.Search,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(15.dp)
-                            .size(24.dp)
-                    )
-                },
-                placeholder = { Text(text = searchTextPlaceholder) },
-                trailingIcon = {
-                    if (state.value != TextFieldValue("")) {
+                    if (!searchFocused) {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(15.dp)
+                                .size(24.dp)
+                        )
+                    } else {
                         IconButton(
                             onClick = {
-                                state.value =
-                                    TextFieldValue("") // Remove text from TextField when you press the 'X' icon
+                                onBackKeyPressed(Pair(TextFieldValue(""), false))
+                                    focusManager.clearFocus()
+                            }
+                        ) {
+                            Icon(
+                                Icons.Default.ArrowBack,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(15.dp)
+                                    .size(24.dp)
+                            )
+                        }
+                    }
+
+                },
+                placeholder = { if (query.text.isEmpty()) Text(text = searchTextPlaceholder) },
+                trailingIcon = {
+                    if (query != TextFieldValue("")) {
+                        IconButton(
+                            onClick = {
+                                onQueryChange(TextFieldValue(""))
                             }
                         ) {
                             Icon(
                                 Icons.Default.Close,
-                                contentDescription = "",
+                                contentDescription = null,
                                 modifier = Modifier
                                     .padding(15.dp)
                                     .size(24.dp)
@@ -69,6 +99,10 @@ fun SearchUi(state: MutableState<TextFieldValue>, searchTextPlaceholder : String
                         }
                     }
                 },
+                keyboardActions = KeyboardActions(onDone = {
+                    onSearchBegin(TextFieldValue(query.text))
+                    focusManager.clearFocus()
+                }),
                 singleLine = true,
                 shape = RectangleShape, // The TextFiled has rounded corners top left and right by default
                 colors = TextFieldDefaults.textFieldColors(

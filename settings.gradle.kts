@@ -11,6 +11,7 @@ include(":coroutines:dispatchers")
 
 include (":favorite")
 include(":favorite:favoriteui")
+include(":favorite:favoritedb")
 
 include (":repos")
 include(":repos:reposui")
@@ -20,6 +21,7 @@ include (":devs")
 include(":devs:devsui")
 
 include(":git-domain")
+include(":git-domain:base")
 include(":git-domain:trending")
 
 include(":components")
@@ -32,5 +34,3 @@ include(":internetdetector")
 include(":repodetails")
 include(":repodetails:repodetailsui")
 include(":repodetails:repodetailinteractor")
-include(":favorite:favoritedb")
-include(":git-domain:base")

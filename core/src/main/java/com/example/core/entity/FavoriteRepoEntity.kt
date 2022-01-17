@@ -9,16 +9,16 @@ import com.example.base.TrendingData
 data class FavoriteRepoEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    override val id: Int?,
+    override val id: Int = 0,
 
     @ColumnInfo(name = "avatar")
-    override val avatar: String?,
+    override val avatar: String? = null,
 
     @ColumnInfo(name = "name")
-    override val name: String?,
+    override val name: String? = null,
 
     @ColumnInfo(name = "url")
-    override var url: String?
+    override var url: String? = null
 ) : TrendingData {
 
     @ColumnInfo(name = "description")

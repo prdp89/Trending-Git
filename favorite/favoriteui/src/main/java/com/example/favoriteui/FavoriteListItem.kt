@@ -1,8 +1,7 @@
-package com.example.devsui
+package com.example.favoriteui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -13,17 +12,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import com.example.core.entity.FavoriteRepoEntity
 import com.example.style.Shapes
-import com.example.trending.dev.TrendingDev
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DevListItem(devItem : TrendingDev,
-                 onClick: () -> Unit) {
-
+fun FavoriteListItem(repoItem : FavoriteRepoEntity,
+                     onLong: (() -> Unit)) {
     Card(
         shape = Shapes.large,
         modifier = Modifier
@@ -35,28 +36,36 @@ fun DevListItem(devItem : TrendingDev,
         val typography = MaterialTheme.typography
         Row(
             modifier = Modifier
-                .clickable(onClick = { })
-                .padding(16.dp),
+                .padding(16.dp)
+                .pointerInput(Unit) {
+                detectTapGestures(
+                    onLongPress = {
+                        onLong()
+                    })
+            },
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ItemImage(
-                Modifier.padding(end = 16.dp))
+            repoItem.avatar?.let {
+                ItemImage(
+                    it,
+                    Modifier.padding(end = 16.dp))
+            }
+
             Column(modifier = Modifier.weight(1f)) {
-                Row {
-                    devItem.avatar?.let { Text(it, style = typography.subtitle1) }
-                    //Text("title_1", style = typography.subtitle1, modifier = Modifier.padding(start = 8.dp))
-                }
-                devItem.name?.let { Text(it, style = typography.body2, fontWeight = FontWeight.Bold) }
-                devItem.url?.let { Text(it, style = typography.body2, fontWeight = FontWeight.Medium) }
+                repoItem.name?.let { Text(it, style = typography.body2, fontWeight = FontWeight.Bold) }
+                repoItem.description?.let { Text(it, style = typography.body2, fontWeight = FontWeight.Medium) }
             }
         }
     }
 }
 
+
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun ItemImage(modifier: Modifier = Modifier) {
+fun ItemImage(imagePath: String, modifier: Modifier = Modifier) {
+
     Image(
-        painter = painterResource(id = R.drawable.ic_sleep),
+        painter = rememberImagePainter(imagePath),
         contentScale = ContentScale.Crop,
         contentDescription = null,
         modifier = modifier

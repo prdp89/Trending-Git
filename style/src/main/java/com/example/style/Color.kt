@@ -10,4 +10,9 @@ val teal200 = Color(0xff80deea)
 val orange = Color(0xFFF56040)
 val yellow = Color(0xFFFCAF45)
 
+val Shadow4 = Color(0xff7057f5)
+val Ocean3 = Color(0xff86f7fa)
+
 val contributorsGradient = listOf(blue500, teal200, orange, yellow)
+
+val tornado = listOf(Shadow4, Ocean3)

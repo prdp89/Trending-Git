@@ -55,17 +55,8 @@ fun ErrorAnimation(modifier: Modifier = Modifier) {
     ) {
         val (width, height) = size
 
-        val rightLineOffsetEnd = Offset(width, height)
-        val startingPoint = Offset(width / 2, 0f)
-        drawLine(
-            color = color,
-            start = startingPoint,
-            end = rightLineOffsetEnd,
-            strokeWidth = scale,
-            cap = StrokeCap.Round
-        )
-
-        val leftLineHeightEnd = Offset(0f, height)
+        val startingPoint = Offset(0f, 0f)
+        val leftLineHeightEnd = Offset(width, height)
         drawLine(
             color = color,
             start = startingPoint,
@@ -74,11 +65,11 @@ fun ErrorAnimation(modifier: Modifier = Modifier) {
             cap = StrokeCap.Round
         )
 
-        val startMiddleOffset = Offset(startingPoint.x / 2, height / 2)
+        val rightLineOffset = Offset(width, 0f)
         drawLine(
             color = color,
-            start = startMiddleOffset,
-            end = Offset((startingPoint.x / 2) * 3, startMiddleOffset.y),
+            start = rightLineOffset,
+            end = Offset(0f, height),
             strokeWidth = scale,
             cap = StrokeCap.Round
         )

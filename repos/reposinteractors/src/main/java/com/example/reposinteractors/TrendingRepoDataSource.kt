@@ -3,8 +3,9 @@ package com.example.reposinteractors
 import android.content.Context
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.core.domain.PAGE_CONST
+import com.example.core.domain.DEFAULT_REPO_VALUE
 import com.example.core.domain.PAGE_SIZE
+import com.example.core.domain.REPO_CONST
 import com.example.core.domain.TrendingRepository
 import com.example.core.dto.TrendingRepoDTO
 import com.example.core.dto.toTrendingRepo
@@ -21,7 +22,7 @@ import kotlinx.coroutines.withContext
 
 class TrendingRepoDataSource @AssistedInject constructor(
     @ApplicationContext private val context: Context,
-    @Assisted(PAGE_CONST) sortQuery: String,
+    @Assisted(REPO_CONST) private val repoName: String,
     private val trendingRepository: TrendingRepository
     ) : PagingSource<Int, TrendingRepo>() {
 
@@ -30,7 +31,7 @@ class TrendingRepoDataSource @AssistedInject constructor(
     @AssistedFactory
     interface TrendingRepoDataSourceFactory {
         fun create(
-            @Assisted(PAGE_CONST) sortQuery: String
+            @Assisted(REPO_CONST) repoName: String
         ): TrendingRepoDataSource
     }
 
@@ -42,7 +43,7 @@ class TrendingRepoDataSource @AssistedInject constructor(
         return if (context.isOnline) {
             try {
                 val it = withContext(Dispatchers.IO) {
-                    trendingRepository.getTrendingRepos(page)
+                    trendingRepository.getTrendingRepos(page, repoName.ifEmpty { DEFAULT_REPO_VALUE })
                 }
                 if (it == null) {
                     canNotLoadMoreContent()

@@ -8,9 +8,8 @@ import com.example.trending.repo.TrendingRepo
 import javax.inject.Inject
 
 class TrendingRepositoryImpl @Inject constructor(private val trendingRepoApi: TrendingRepoApi) : TrendingRepository {
-    override suspend fun getTrendingRepos(page: Int): List<TrendingRepoDTO> {
-        //todo:pass google in search..
-        return trendingRepoApi.getTrendingRepositories("google", page)
+    override suspend fun getTrendingRepos(page: Int, repoName: String): List<TrendingRepoDTO> {
+        return trendingRepoApi.getTrendingRepositories(repoName, page)
     }
 
     override suspend fun getTrendingRepo(owner: String, repoName: String): TrendingRepoDTO {

@@ -2,4 +2,5 @@
 <resources>
     <string name="retry">Retry</string>
     <string name="no_data_loaded_no_connect">No active connect, please connect to reload.</string>
+    <string name="search_google">Search Google</string>
 </resources>

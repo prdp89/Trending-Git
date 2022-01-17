@@ -12,6 +12,7 @@ dependencies {
     addComposeOfficialDependencies()
     addHiltNavigationDependency()
     implementation(project(":git-domain:trending"))
+    implementation(project(":git-domain:base"))
     implementation(project(":style"))
     implementation(project(":components"))
 }

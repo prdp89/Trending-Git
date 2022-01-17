@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fav_repos">Favorite Repos</string>
+    <string name="no_more_repo_to_load">No more items to load.</string>
+    <string name="no_favorites_repos">No favorites here, try adding some :)</string>
+    <string name="no_more_favorite_repos">No more favorite repos to load.</string>
+    <string name="remove_repo_from_favs">Remove %1$s favorite item?</string>
+    <string name="remove">Remove</string>
 </resources>
