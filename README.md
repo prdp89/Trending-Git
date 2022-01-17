@@ -7,9 +7,11 @@ A minimalistic app to show case Clean App Architecture while using the [Jetpack 
 <img src="art/trendinggif.gif" width="250" />
 
 ## Screenshots
-<img src="art/screen-1.jpeg" width="250" />
-<img src="art/screen-2.jpeg" width="250" />
-<img src="art/screen-3.jpeg" width="250" />
+<p float="center">
+  <img src="art/screen-1.jpeg" width="250" />
+  <img src="art/screen-2.jpeg" width="250" />
+  <img src="art/screen-3.jpeg" width="250" />
+</p>
 
 ## Framework Components 🛠
 
