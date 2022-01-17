@@ -4,7 +4,7 @@
 A minimalistic app to show case Clean App Architecture while using the [Jetpack Compose](https://developer.android.com/jetpack/compose)
 
 ## Demo UI
-<img src="/art/trendinggif.gif" width="250" />
+<img src="art/trendinggif.gif" width="250" />
 
 ## Framework Components 🛠
 
