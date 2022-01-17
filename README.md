@@ -1,10 +1,10 @@
 # Trending-Git
 ![License-MIT](https://img.shields.io/badge/License-MIT-red.svg)
 
-A minimalistic app to show case Clean App Architecture while using the [Jetpack Compose][https://developer.android.com/jetpack/compose]
+A minimalistic app to show case Clean App Architecture while using the [Jetpack Compose](https://developer.android.com/jetpack/compose)
 
 ## Demo UI
-<img src="art/trendinggif.mp4" width="250" />
+<img src="/art/trendinggif.gif" width="250" />
 
 ## Framework Components 🛠
 
@@ -41,7 +41,7 @@ Support it by joining __[stargazers](https://github.com/prdp89/Trending-Git/star
 # Credits
 1. [Hristijan](https://twitter.com/funky_muse)
     - Thanks for the great [project](https://github.com/FunkyMuse/Aurora).
-2. [mitchtabian][https://www.youtube.com/c/CodingWithMitch] [philipplackner][https://www.youtube.com/c/PhilippLackner]
+2. [mitchtabian](https://www.youtube.com/c/CodingWithMitch) [philipplackner](https://www.youtube.com/c/PhilippLackner)
     - Keep on creating the awesome youtube content
 
 ## License
