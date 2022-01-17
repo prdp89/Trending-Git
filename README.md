@@ -6,6 +6,11 @@ A minimalistic app to show case Clean App Architecture while using the [Jetpack 
 ## Demo UI
 <img src="art/trendinggif.gif" width="250" />
 
+## Screenshots
+<img src="art/screen-1.jpeg" width="250" />
+<img src="art/screen-2.jpeg" width="250" />
+<img src="art/screen-3.jpeg" width="250" />
+
 ## Framework Components 🛠
 
 Some of the popular libraries and MVVM clean architecture used with Room database as a source
